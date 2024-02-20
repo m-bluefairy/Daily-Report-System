@@ -98,6 +98,27 @@ public class EmployeeController {
         return "redirect:/employees";
     }
 
+    // ----- 追加:ここから -----
+    /** 従業員画面を表示 */
+    @GetMapping("/update/{code}/")
+    public String getEmployee(@PathVariable("code") Integer code, Model model) {
+        // Modelに登録:一覧から遷移。Modelにはサービスから取得したEmployessをセットする
+        model.addAttribute("employee", employeeService.getEmployee(code));
+        // 従業員更新画面に遷移
+        return "employees/update";
+    }
+
+    /** 従業員更新処理 */
+    @PostMapping("/update/{code}/")
+    public String postEmployee(Employee employee) {
+        // 従業員登録
+        employeeService.save(employee);
+        // 一覧画面にリダイレクト
+        return "redirect:/employees/list";
+    }
+    // ----- 追加:ここまで -----
+
+
     // 従業員削除処理
     @PostMapping(value = "/{code}/delete")
     public String delete(@PathVariable String code, @AuthenticationPrincipal UserDetail userDetail, Model model) {
