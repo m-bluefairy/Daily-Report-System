@@ -99,11 +99,11 @@ public class EmployeeController {
     }
 
     // ----- 追加:ここから -----
-    /** 従業員画面を表示 */
+    /** 従業員更新画面を表示 */
     @GetMapping("/update/{code}/")
-    public String getEmployee(@PathVariable("code") Integer code, Model model) {
+    public String getEdit(@PathVariable("code") Integer code, Model model) {
         // Modelに登録:一覧から遷移。Modelにはサービスから取得したEmployessをセットする
-        model.addAttribute("employee", employeeService.getEmployee(code));
+        model.addAttribute("employee");
         // 従業員更新画面に遷移
         return "employees/update";
     }
