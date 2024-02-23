@@ -100,16 +100,16 @@ public class EmployeeController {
 
     // ----- 追加:ここから -----
     /** 従業員更新画面を表示 */
-    @GetMapping("/update/{code}/")
-    public String getEdit(@PathVariable("code") Integer code, Model model) {
-        // Modelに登録:一覧から遷移。Modelにはサービスから取得したEmployessをセットする
+    @GetMapping("/{code}/update")
+    public String edit(@PathVariable("code") Integer code, Model model) {
+        // Modelに登録
         model.addAttribute("employee");
         // 従業員更新画面に遷移
         return "employees/update";
     }
 
     /** 従業員更新処理 */
-    @PostMapping("/update/{code}/")
+    @PostMapping("/{code}/update")
     public String postEmployee(Employee employee) {
         // 従業員登録
         employeeService.save(employee);
