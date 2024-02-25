@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.techacademy.constants.ErrorKinds;
 import com.techacademy.constants.ErrorMessage;
-
 import com.techacademy.entity.Employee;
 import com.techacademy.service.EmployeeService;
 import com.techacademy.service.UserDetail;
@@ -110,15 +109,19 @@ public class EmployeeController {
         }
         return "employees/update";
     }
-
-    /** 従業員更新処理 */
     @PostMapping("/{code}/update")
-    public String update(Employee employee) {
+    public String update(@Validated Employee employee, BindingResult res, Model model)  {
+        if(res.hasErrors()) {
+             // エラーあり
+              edit(null, model);
+              return "employees/update";
+              }
         // 従業員登録
         employeeService.save(employee);
         // 一覧画面にリダイレクト
         return "redirect:/employees";
     }
+
     // ----- 追加:ここまで -----
 
 
