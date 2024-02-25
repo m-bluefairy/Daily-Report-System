@@ -20,47 +20,44 @@
                 <div class="col-xl-12">
                     <div class="card">
                         <div class="card-body">
-                        <form method="post" th:action="@{/employees/{code}/update/(code=${code})}" th:object="${code}">
-                        <p>パスワードは変更する場合のみ入力してください</p>
+                        <form method="post" th:action="@{/employees/{code}/update}" th:object="${employee}">
+
+                        <p class="mb-1">パスワードは変更する場合のみ入力してください</p>
                         <div class="wizard wizard-success mb-4">
                              <div class="mb-3">
                                  <label class="form-label" for="code">社員番号</label>
                                  <p class="mb-1"></p>
-                                 <div class="align-middle" th:text="${employee}"></div>
+                                    <input type="hidden" id="code" name="code" th:value="*{code}" th:text="*{code}">
+                              </div>
 
                              <div class="mb-3">
                                  <label class="form-label" for="name">氏名</label>
                                  <p class="mb-1"></p>
                                  <div class="col-md-7">
-                                     <input class="form-control" type="text" th:field="*{name}" th:errorclass="err" id="name">
-                                     <span th:errors="*{name}" class="text-danger"></span>
+                                    <input type="text" th:field="*{name}">
                                  </div>
                               </div>
 
                               <div class="mb-3">
-                                 <label class="form-label" for="password">パスワード</label>
-                                 <p class="mb-1"></p>
-                                 <div class="col-md-7">
-                                      <input class="form-control" type="password" th:field="*{password}" th:errorclass="err" id="password">
-                                      <span th:if="${passwordError} neq null" th:text="${passwordError}" class="text-danger"></span>
-                                  </div>
+                                <label class="form-label" for="password">パスワード</label>
+                                <p class="mb-1"></p>
+                                <input type="text" th:field="*{password}">
                               </div>
 
                               <div class="mb-3">
                                 <label class="form-label" for="role">権限</label>
                                 <p class="mb-1"></p>
-                                <div class="col-md-4">
-                                    <select class="form-select" th:field="*{role}" id="role">
-                                          <option th:each="item:${T(com.techacademy.entity.Employee.Role).values()}" th:value="${item}" th:text="${item.getValue()}" th:selected="*{role} == ${item}">
-                                    </select>
-                                </div>
+                                <select class="form-select" th:field="*{role}" id="role">
+                                    <option th:each="item:${T(com.techacademy.entity.Employee.Role).values()}" th:value="${item}" th:text="${item.getValue()}" th:selected="*{role} == ${item}">
+                                 </select>
+                                
                              </div>
                         </div><!--//end_wizard wizard-success mb-4//-->
 
-                             <p class="mt-5">
-                                 <input type="submit" value="更新" class="btn btn-primary">
-                                 <a th:href="@{/employees/}" class="btn btn-primary">戻る</a>
-                             </p>
+                        <p class="mt-5">
+                           <input type="submit" value="更新" class="btn btn-primary">
+                           <a th:href="@{/employees/}" class="btn btn-primary">戻る</a>
+                        </p>
 
                         </form>
                         </div><!--///end_card-body///-->

@@ -98,21 +98,19 @@ public class EmployeeController {
         return "redirect:/employees";
     }
 
-    // ----- 追加:ここから -----
-    /** 従業員更新画面を表示 */   
+ // ----- 追加:ここから -----
+    /** 従業員更新画面を表示 */
     @GetMapping("/{code}/update")
     public String edit(@PathVariable("code") Integer code, Model model) {
         // Modelに登録
         if(code==null) {
-        //Modelにはedit()から渡された引数のcodeをセットする
             model.addAttribute("employee");
         }else{
-         //一覧から遷移。Modelにはサービスから取得したemployeeをセットする
-            model.addAttribute("employee");
+            model.addAttribute("employee", employeeService);
         }
         return "employees/update";
     }
-    
+
     /** 従業員更新処理 */
     @PostMapping("/{code}/update")
     public String postEmployee(Employee employee) {
