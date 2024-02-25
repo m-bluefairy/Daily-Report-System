@@ -101,12 +101,12 @@ public class EmployeeController {
  // ----- 追加:ここから -----
     /** 従業員更新画面を表示 */
     @GetMapping("/{code}/update")
-    public String edit(@PathVariable("code") Integer code, Model model) {
+    public String edit(@PathVariable("code") String code, Model model) {
         // Modelに登録
         if(code==null) {
             model.addAttribute("employee");
         }else{
-            model.addAttribute("employee", employeeService);
+            model.addAttribute("employee", employeeService.findByCode(code));
         }
         return "employees/update";
     }
