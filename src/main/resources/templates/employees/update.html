@@ -19,10 +19,11 @@
 
                 <div class="col-xl-12">
                     <div class="card">
-                        <div class="card-body">
+                    <div class="card-header">
+                        パスワードは変更する場合のみ入力してください
+                    </div>
+                    <div class="card-body">
                         <form method="post" th:action="@{/employees/{code}/update}" th:object="${employee}">
-
-                        <p class="mb-1">パスワードは変更する場合のみ入力してください</p>
                         <div class="wizard wizard-success mb-4">
                              <div class="mb-3">
                                  <label class="form-label" for="code">社員番号</label>
@@ -34,33 +35,35 @@
                                  <label class="form-label" for="name">氏名</label>
                                  <p class="mb-1"></p>
                                  <div class="col-md-7">
-                                    <input type="text" th:field="*{name}">
+                                    <input class="form-control" type="text" th:field="*{name}">
                                  </div>
                               </div>
 
                               <div class="mb-3">
                                 <label class="form-label" for="password">パスワード</label>
-                                <p class="mb-1"></p>
-                                <input type="text" th:field="*{password}">
+                               <p class="mb-1"></p>
+                              <div class="col-md-7">
+                                <input class="form-control" type="text" th:field="*{password}">
                               </div>
 
                               <div class="mb-3">
                                 <label class="form-label" for="role">権限</label>
                                 <p class="mb-1"></p>
-                                <select class="form-select" th:field="*{role}" id="role">
+                                <div class="col-md-4">
+                                    <select class="form-select" th:field="*{role}" id="role">
                                     <option th:each="item:${T(com.techacademy.entity.Employee.Role).values()}" th:value="${item}" th:text="${item.getValue()}" th:selected="*{role} == ${item}">
-                                 </select>
-                                
-                             </div>
+                                    </select>
+                                </div>
+                            </div>
                         </div><!--//end_wizard wizard-success mb-4//-->
 
                         <p class="mt-5">
                            <input type="submit" value="更新" class="btn btn-primary">
-                           <a th:href="@{/employees/}" class="btn btn-primary">戻る</a>
+                           <a th:href="@{/employee}" class="btn btn-primary">戻る</a>
                         </p>
 
                         </form>
-                        </div><!--///end_card-body///-->
+                    </div><!--///end_card-body///-->
                     </div><!--///end_card///-->
                 </div><!--///end_col-xl-12///-->
 

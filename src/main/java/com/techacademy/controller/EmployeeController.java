@@ -113,12 +113,13 @@ public class EmployeeController {
 
     /** 従業員更新処理 */
     @PostMapping("/{code}/update")
-    public String postEmployee(Employee employee) {
+    public String updetd(@Validated Employee employee) {
         // 従業員登録
         employeeService.save(employee);
         // 一覧画面にリダイレクト
-        return "redirect:/employees/list";
+        return "redirect:/employee/list";
     }
+
     // ----- 追加:ここまで -----
 
 
