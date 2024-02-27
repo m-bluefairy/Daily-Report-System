@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.techacademy.constants.ErrorKinds;
 import com.techacademy.entity.Employee;
+//import com.techacademy.entity.User;//
 import com.techacademy.repository.EmployeeRepository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,6 +52,13 @@ public class EmployeeService {
         employeeRepository.save(employee);
         return ErrorKinds.SUCCESS;
     }
+    // ----- 追加:ここから -----
+    // 従業員更新（追加）を行なう
+    @Transactional
+    public void update(Employee employee) {
+        employeeRepository.save(employee);
+       }
+    // ----- 追加:ここまで -----
 
     // 従業員削除
     @Transactional
@@ -118,5 +126,6 @@ public class EmployeeService {
         int passwordLength = employee.getPassword().length();
         return passwordLength < 8 || 16 < passwordLength;
     }
+
 
 }

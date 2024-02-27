@@ -117,7 +117,7 @@ public class EmployeeController {
               return "employees/update";
               }
         // 従業員登録
-        employeeService.save(employee);
+        employeeService.update(employee);
         // 一覧画面にリダイレクト
         return "redirect:/employees";
     }
