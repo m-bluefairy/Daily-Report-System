@@ -110,14 +110,26 @@ public class EmployeeController {
         return "employees/update";
     }
     @PostMapping("/{code}/update")
-    public String update(@Validated Employee employee, BindingResult res, Model model)  {
+    public String update(@Validated Employee c, BindingResult res, Model model)  {
         if(res.hasErrors()) {
              // エラーあり
               edit(null, model);
               return "employees/update";
               }
-        // 従業員登録
-        employeeService.update(employee);
+        // 登録済みの従業員データ = codeをもとに従業員データを取得
+        savedEmployee = employee.getCode();
+        // created_atが設定されているので、取得結果を元に更新処理を行うと、エラーが発生しないはず！！
+        var savedEmployee = service.findByCode(employee.getCode());
+        
+        // 登録済みの従業員データにリクエストの項目を設定する
+        savedEmployee.setCode(employee.getCode());
+        
+        //パスワードが設定されていたら
+        if (password == null) {
+            savedEmployee.setPassword(employee.getPassword());
+          }
+        service.update(savedEmployee);
+  
         // 一覧画面にリダイレクト
         return "redirect:/employees";
     }

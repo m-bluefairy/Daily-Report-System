@@ -56,6 +56,9 @@ public class EmployeeService {
     // 従業員更新（追加）を行なう
     @Transactional
     public void update(Employee employee) {
+        // saveと同じようにパスワードチェック実施
+        
+        // saveを参考に、更新日時の設定
         employeeRepository.save(employee);
        }
     // ----- 追加:ここまで -----
