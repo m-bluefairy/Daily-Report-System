@@ -110,14 +110,9 @@ public class EmployeeController {
         return "employees/update";
     }
     @PostMapping("/{code}/update")
-    public String update(@Validated Employee employee, BindingResult res, Model model)  {
-        if(res.hasErrors()) {
-             // エラーあり
-              edit(null, model);
-              return "employees/update";
-              }
+    public String update(@PathVariable("code") String code, Model model){
         // 従業員登録
-        employeeService.update(employee);
+        employeeService.update(employeeService.findByCode(code));
         // 一覧画面にリダイレクト
         return "redirect:/employees";
     }
