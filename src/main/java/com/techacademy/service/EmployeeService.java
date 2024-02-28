@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import com.techacademy.constants.ErrorKinds;
 import com.techacademy.entity.Employee;
-//import com.techacademy.entity.User;//
 import com.techacademy.repository.EmployeeRepository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -57,8 +56,15 @@ public class EmployeeService {
     @Transactional
     public void update(Employee employee) {
         // saveと同じようにパスワードチェック実施
-        employeePasswordCheck(employee);
+        ErrorKinds result = employeePasswordCheck(employee);
+        if (ErrorKinds.CHECK_OK != result) {
+            return;
+        }
+
         // saveを参考に、更新日時の設定
+        LocalDateTime now = LocalDateTime.now();
+        employee.setCreatedAt(now);
+        employee.setUpdatedAt(now);
         employeeRepository.save(employee);
        }
     // ----- 追加:ここまで -----
