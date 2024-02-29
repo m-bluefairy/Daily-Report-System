@@ -113,8 +113,8 @@ public class EmployeeController {
     public String update(@Validated Employee employee, BindingResult res, Model model)  {
         if(res.hasErrors()) {
              // エラーあり
-              edit(null, model);
-              return "employees/update";
+            model.addAttribute("employee", employee);
+            return "employees/update";
               }
         // 登録済みの従業員データ = codeをもとに従業員データを取得
         String code = employee.getCode();

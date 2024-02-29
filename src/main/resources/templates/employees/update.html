@@ -23,7 +23,7 @@
                         パスワードは変更する場合のみ入力してください
                     </div>
                     <div class="card-body">
-                        <form method="post" th:action="@{/employees/{code}/update(code=${code})}" th:object="${employee}">
+                        <form method="post" th:action="@{/employees/{code}/update(code=${employee.code})}" th:object="${employee}">
                         <div class="wizard wizard-success mb-4">
 
                              <div class="mb-3">
