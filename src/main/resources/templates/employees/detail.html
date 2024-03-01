@@ -39,6 +39,9 @@
                             <th>登録日時</th>
                             <td class="align-middle" th:text="${#temporals.format(employee.createdAt, 'yyyy-MM-dd hh:mm:ss')}"></td>
                         </tr>
+                            <th>更新日時</th>
+                            <td class="align-middle" th:text="${#temporals.format(employee.updatedAt, 'yyyy-MM-dd hh:mm:ss')}"></td>
+                        </tr>
                      </table>
 
                     <!-- 更新・削除・戻るボタン -->
