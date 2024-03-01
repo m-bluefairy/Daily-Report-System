@@ -127,16 +127,19 @@ public class EmployeeController {
         savedEmployee.setName(employee.getName());
         savedEmployee.setRole(employee.getRole());
 
-        //パスワードが設定されていたら
+        //画面でパスワードが入力されていたら
         String password = employee.getPassword();
+
         if (password == null) {
             savedEmployee.setPassword(employee.getPassword());
-          }
+        }
         employeeService.update(savedEmployee);
+        ErrorMessage.getErrorValue(ErrorKinds.BLANK_ERROR);
 
         // 一覧画面にリダイレクト
         return "redirect:/employees";
-    }
+
+}
     // ----- 追加:ここまで -----
 
 
@@ -151,6 +154,9 @@ public class EmployeeController {
             model.addAttribute("employee", employeeService.findByCode(code));
             return detail(code, model);
         }
+
+
+
 
         return "redirect:/employees";
     }
