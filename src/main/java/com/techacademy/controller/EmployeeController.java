@@ -133,12 +133,23 @@ public class EmployeeController {
         if (password == null) {
             savedEmployee.setPassword(employee.getPassword());
         }
-        employeeService.update(savedEmployee);
-        ErrorMessage.getErrorValue(ErrorKinds.BLANK_ERROR);
 
+        try {
+            ErrorKinds result = employeeService.save(employee);
+
+            if (ErrorMessage.contains(result)) {
+                model.addAttribute(ErrorMessage.getErrorName(result), ErrorMessage.getErrorValue(result));
+                return "employees/update";
+            }
+
+            } catch (DataIntegrityViolationException e) {
+                model.addAttribute(ErrorMessage.getErrorName(ErrorKinds.DUPLICATE_EXCEPTION_ERROR),
+                    ErrorMessage.getErrorValue(ErrorKinds.DUPLICATE_EXCEPTION_ERROR));
+                return "employees/update";
+        }
+        employeeService.update(savedEmployee);
         // 一覧画面にリダイレクト
         return "redirect:/employees";
-
 }
     // ----- 追加:ここまで -----
 
@@ -154,9 +165,6 @@ public class EmployeeController {
             model.addAttribute("employee", employeeService.findByCode(code));
             return detail(code, model);
         }
-
-
-
 
         return "redirect:/employees";
     }
