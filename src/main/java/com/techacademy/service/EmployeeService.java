@@ -56,6 +56,7 @@ public class EmployeeService {
     @Transactional
     public void update(Employee employee) {
         // saveと同じようにパスワードチェック実施
+        //データベースからレコードの取得を行う
         ErrorKinds result = employeePasswordCheck(employee);
         if (ErrorKinds.CHECK_OK != result) {
             return;

@@ -71,7 +71,6 @@ public class EmployeeController {
                     ErrorMessage.getErrorValue(ErrorKinds.BLANK_ERROR));
 
             return create(employee);
-
         }
 
         // 入力チェック
@@ -116,7 +115,7 @@ public class EmployeeController {
              // エラーあり
             model.addAttribute("employee", employee);
             return "employees/update";
-              }
+            }
         // 登録済みの従業員データ = codeをもとに従業員データを取得
         String code = employee.getCode();
 
@@ -133,20 +132,7 @@ public class EmployeeController {
         if (password == null) {
             savedEmployee.setPassword(employee.getPassword());
         }
-
-        try {
-            ErrorKinds result = employeeService.save(employee);
-
-            if (ErrorMessage.contains(result)) {
-                model.addAttribute(ErrorMessage.getErrorName(result), ErrorMessage.getErrorValue(result));
-                return "employees/update";
-            }
-
-            } catch (DataIntegrityViolationException e) {
-                model.addAttribute(ErrorMessage.getErrorName(ErrorKinds.DUPLICATE_EXCEPTION_ERROR),
-                    ErrorMessage.getErrorValue(ErrorKinds.DUPLICATE_EXCEPTION_ERROR));
-                return "employees/update";
-        }
+        
         employeeService.update(savedEmployee);
         // 一覧画面にリダイレクト
         return "redirect:/employees";
