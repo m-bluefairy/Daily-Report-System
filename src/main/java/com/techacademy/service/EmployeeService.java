@@ -65,11 +65,13 @@ public class EmployeeService {
         employee.setPassword(employee.getPassword());
     }
 
-    // saveを参考に、更新日時の設定
-    LocalDateTime now = LocalDateTime.now();
-    employee.setCreatedAt(now);
-    employee.setUpdatedAt(now);
-    employeeRepository.save(employee);
+        // saveを参考に、更新日時の設定
+        LocalDateTime now = LocalDateTime.now();
+        employee.setCreatedAt(now);
+        employee.setUpdatedAt(now);
+
+        employeeRepository.save(employee);
+        return;
     }
    // ----- 追加:ここまで -----
 

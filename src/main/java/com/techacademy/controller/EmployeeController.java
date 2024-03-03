@@ -73,13 +73,7 @@ public class EmployeeController {
             return create(employee);
         }
 
-        // 入力チェック
-        if (res.hasErrors()) {
-            return create(employee);
-        }
 
-        // 論理削除を行った従業員番号を指定すると例外となるためtry~catchで対応
-        // (findByIdでは削除フラグがTRUEのデータが取得出来ないため)
         try {
             ErrorKinds result = employeeService.save(employee);
 
@@ -129,6 +123,21 @@ public class EmployeeController {
 
         //画面でパスワードが入力されていたら
         String password = employee.getPassword();
+
+        // パスワードのエラー表示
+        try {
+            ErrorKinds result = employeeService.save(employee);
+
+            if (ErrorMessage.contains(result)) {
+                model.addAttribute(ErrorMessage.getErrorName(result), ErrorMessage.getErrorValue(result));
+                return "employees/update";
+            }
+
+            } catch (DataIntegrityViolationException e) {
+                model.addAttribute(ErrorMessage.getErrorValue(ErrorKinds.DUPLICATE_EXCEPTION_ERROR));
+                return "employees/update";
+              }
+
 
         employeeService.update(savedEmployee, password);
         // 一覧画面にリダイレクト
