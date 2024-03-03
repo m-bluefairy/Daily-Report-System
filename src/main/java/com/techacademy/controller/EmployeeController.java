@@ -129,7 +129,6 @@ public class EmployeeController {
 
         //画面でパスワードが入力されていたら
         String password = employee.getPassword();
-        savedEmployee.setPassword(employee.getPassword());
 
         employeeService.update(savedEmployee, password);
         // 一覧画面にリダイレクト

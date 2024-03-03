@@ -51,7 +51,7 @@ public class EmployeeService {
         employeeRepository.save(employee);
         return ErrorKinds.SUCCESS;
     }
-    
+
     // ----- 追加:ここから -----
     // 従業員更新（追加）を行なう
     @Transactional
@@ -60,12 +60,11 @@ public class EmployeeService {
         if (newPassword.equals("") == false) {
             ErrorKinds result = employeePasswordCheck(employee);
             if (ErrorKinds.CHECK_OK != result) {
-                return;
-            }
-       
+            return;
+        }
         employee.setPassword(employee.getPassword());
     }
-        
+
     // saveを参考に、更新日時の設定
     LocalDateTime now = LocalDateTime.now();
     employee.setCreatedAt(now);
