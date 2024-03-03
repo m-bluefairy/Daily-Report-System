@@ -55,19 +55,15 @@ public class EmployeeService {
     // ----- 追加:ここから -----
     // 従業員更新（追加）を行なう
     @Transactional
-    public void update(Employee employee, String newPassword) {
+    public ErrorKinds update(Employee employee, String newPassword) {
         // saveと同じようにパスワードチェック実施
         if (newPassword.equals("") == false) {
             ErrorKinds result = employeePasswordCheck(employee);
             if (ErrorKinds.CHECK_OK != result) {
-            return;
+                return result;
             }
-            
-            if (findByCode(employee.getPassword()) != null) {
-            return;
-            }
-                
-        employee.setPassword(employee.getPassword());
+
+        employee.setPassword(newPassword);
        }
 
         // saveを参考に、更新日時の設定
@@ -76,6 +72,7 @@ public class EmployeeService {
         employee.setUpdatedAt(now);
 
         employeeRepository.save(employee);
+        return ErrorKinds.SUCCESS;
     }
    // ----- 追加:ここまで -----
 

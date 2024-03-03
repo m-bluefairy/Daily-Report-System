@@ -126,7 +126,7 @@ public class EmployeeController {
 
         // パスワードのエラー表示
         try {
-            ErrorKinds result = employeeService.save(employee);
+            ErrorKinds result = employeeService.update(savedEmployee, password);
 
             if (ErrorMessage.contains(result)) {
                 model.addAttribute(ErrorMessage.getErrorName(result), ErrorMessage.getErrorValue(result));
@@ -138,7 +138,6 @@ public class EmployeeController {
               return "employees/update";
               }
 
-        employeeService.update(savedEmployee, password);
         // 一覧画面にリダイレクト
         return "redirect:/employees";
 }
