@@ -58,10 +58,11 @@ public class EmployeeService {
     public void update(Employee employee, String newPassword) {
         // saveと同じようにパスワードチェック実施
         if (newPassword.equals("") == false) {
-        ErrorKinds result = employeePasswordCheck(employee);
-        if (ErrorKinds.CHECK_OK != result) {
-            return;
-        }
+            ErrorKinds result = employeePasswordCheck(employee);
+            if (ErrorKinds.CHECK_OK != result) {
+                return;
+            }
+       
         employee.setPassword(employee.getPassword());
     }
         
