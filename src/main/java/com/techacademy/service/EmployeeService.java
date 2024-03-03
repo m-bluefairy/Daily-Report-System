@@ -51,24 +51,27 @@ public class EmployeeService {
         employeeRepository.save(employee);
         return ErrorKinds.SUCCESS;
     }
+    
     // ----- 追加:ここから -----
     // 従業員更新（追加）を行なう
     @Transactional
-    public void update(Employee employee) {
+    public void update(Employee employee, String newPassword) {
         // saveと同じようにパスワードチェック実施
-        //データベースからレコードの取得を行う
+        if (newPassword.equals("") == false) {
         ErrorKinds result = employeePasswordCheck(employee);
         if (ErrorKinds.CHECK_OK != result) {
             return;
         }
-
-        // saveを参考に、更新日時の設定
-        LocalDateTime now = LocalDateTime.now();
-        employee.setCreatedAt(now);
-        employee.setUpdatedAt(now);
-        employeeRepository.save(employee);
-       }
-    // ----- 追加:ここまで -----
+        employee.setPassword(employee.getPassword());
+    }
+        
+    // saveを参考に、更新日時の設定
+    LocalDateTime now = LocalDateTime.now();
+    employee.setCreatedAt(now);
+    employee.setUpdatedAt(now);
+    employeeRepository.save(employee);
+    }
+   // ----- 追加:ここまで -----
 
     // 従業員削除
     @Transactional

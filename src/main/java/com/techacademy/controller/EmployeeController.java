@@ -97,7 +97,7 @@ public class EmployeeController {
         return "redirect:/employees";
     }
 
- // ----- 追加:ここから -----
+       // ----- 追加:ここから -----
     /** 従業員更新画面を表示 */
     @GetMapping("/{code}/update")
     public String edit(@PathVariable("code") String code, Model model) {
@@ -114,6 +114,7 @@ public class EmployeeController {
         if(res.hasErrors()) {
              // エラーあり
             model.addAttribute("employee", employee);
+            System.out.println(res);
             return "employees/update";
             }
         // 登録済みの従業員データ = codeをもとに従業員データを取得
@@ -129,11 +130,7 @@ public class EmployeeController {
         //画面でパスワードが入力されていたら
         String password = employee.getPassword();
 
-        if (password == null) {
-            savedEmployee.setPassword(employee.getPassword());
-        }
-
-        employeeService.update(savedEmployee);
+        employeeService.update(savedEmployee, password);
         // 一覧画面にリダイレクト
         return "redirect:/employees";
 }
