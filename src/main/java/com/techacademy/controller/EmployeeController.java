@@ -131,13 +131,12 @@ public class EmployeeController {
             if (ErrorMessage.contains(result)) {
                 model.addAttribute(ErrorMessage.getErrorName(result), ErrorMessage.getErrorValue(result));
                 return "employees/update";
-            }
+                }
 
             } catch (DataIntegrityViolationException e) {
                 model.addAttribute(ErrorMessage.getErrorValue(ErrorKinds.DUPLICATE_EXCEPTION_ERROR));
-                return "employees/update";
+              return "employees/update";
               }
-
 
         employeeService.update(savedEmployee, password);
         // 一覧画面にリダイレクト

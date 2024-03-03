@@ -61,9 +61,14 @@ public class EmployeeService {
             ErrorKinds result = employeePasswordCheck(employee);
             if (ErrorKinds.CHECK_OK != result) {
             return;
-        }
+            }
+            
+            if (findByCode(employee.getPassword()) != null) {
+            return;
+            }
+                
         employee.setPassword(employee.getPassword());
-    }
+       }
 
         // saveを参考に、更新日時の設定
         LocalDateTime now = LocalDateTime.now();
@@ -71,7 +76,6 @@ public class EmployeeService {
         employee.setUpdatedAt(now);
 
         employeeRepository.save(employee);
-        return;
     }
    // ----- 追加:ここまで -----
 
